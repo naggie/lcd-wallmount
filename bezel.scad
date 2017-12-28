@@ -45,15 +45,14 @@ module bezel(x,y,z,overhang=[3,3,3,3],front=2,top=10,bottom=10,sides=5) {
 // 6. Apply black nail polish to screw heads
 //
 // (6) was discovered to be better than using printed plastic screw head covers.
-module countersunk_screwhole(head=8,diameter=4,height=250) {
-    // expand 10% for some play
-    diameter = diameter * 1.1;
+module countersunk_screwhole(head=8,diameter=4) {
     // head
-    translate([0,0,-diameter/2]) cylinder(h=4,r1=diameter/2,r2=head/2,center=true);
+    translate([0,0,-head/2]) cylinder(h=head,r1=0,r2=head/2,center=true);
     // shank
-    translate([0,0,-height/2]) cylinder(h=height,r1=diameter/2,r2=diameter/2,center=true);
+    // expand 10% for some play
+    translate([0,0,-250/2]) cylinder(h=250,r1=diameter*0.55,r2=diameter*0.55,center=true);
     // plug hole
-    translate([0,0,10]) cylinder(h=20,r=head/2,center=true);
+    translate([0,0,9.99]) cylinder(h=20,r=head/2,center=true);
 }
 
 module mountable_bezel(x,y,z,overhang=[3,3,3,3],front=2,top=11,bottom=11,sides=5,margin=1) {
