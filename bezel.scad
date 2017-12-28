@@ -47,14 +47,13 @@ module bezel(x,y,z,overhang=[3,3,3,3],front=2,top=10,bottom=10,sides=5) {
 // (6) was discovered to be better than using printed plastic screw head covers.
 module countersunk_screwhole(head=8,diameter=4,height=250) {
     // expand 10% for some play
-    scale([1.1,1.1,1.1]) {
-        // head
-        translate([0,0,-diameter/2]) cylinder(h=4,r1=diameter/2,r2=head/2,center=true);
-        // shank
-        translate([0,0,-height/2]) cylinder(h=height,r1=diameter/2,r2=diameter/2,center=true);
-        // plug hole
-        translate([0,0,10]) cylinder(h=20,r=head/2,center=true);
-    }
+    diameter = diameter * 1.1;
+    // head
+    translate([0,0,-diameter/2]) cylinder(h=4,r1=diameter/2,r2=head/2,center=true);
+    // shank
+    translate([0,0,-height/2]) cylinder(h=height,r1=diameter/2,r2=diameter/2,center=true);
+    // plug hole
+    translate([0,0,10]) cylinder(h=20,r=head/2,center=true);
 }
 
 module mountable_bezel(x,y,z,overhang=[3,3,3,3],front=2,top=11,bottom=11,sides=5,margin=1) {
