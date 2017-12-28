@@ -55,7 +55,11 @@ module countersunk_screwhole(head=8,diameter=4,height=250) {
     }
 }
 
-module mountable_bezel(x,y,z,overhang=[3,3,3,3],front=2,top=11,bottom=11,sides=5) {
+module mountable_bezel(x,y,z,overhang=[3,3,3,3],front=2,top=11,bottom=11,sides=5,margin=1) {
+    x = x+margin;
+    y = y+margin;
+    z = z+margin;
+
     height = y + top + bottom;
     width = x+2*sides;
     screw_z = z+front-1;
