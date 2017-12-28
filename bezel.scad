@@ -18,10 +18,10 @@ module bezel(x,y,z,overhang=[3,3,3,3],front=2,top=10,bottom=10,sides=5) {
         // bounding box
         linear_extrude(height=z+front) rounding(r=4) square([x+2*sides,y+top+bottom]);
         // tablet cut out
-        linear_extrude(height=z) rounding(r=2)  translate ([sides,bottom,0]) square([x,y]);
+        translate([0,0,-1]) linear_extrude(height=z+1) rounding(r=2)  translate([sides,bottom,0]) square([x,y]);
         ///translate ([sides,bottom,0]) cube([x,y,z]);
         // display cut out leaving a frame
-        linear_extrude(height=z+front) rounding(r=4)  translate ([sides+overhang[3],bottom+overhang[2],0]) square([x-overhang[1]-overhang[3],y-overhang[0]-overhang[2]]) ;
+        translate([0,0,-1]) linear_extrude(height=z+front+2) rounding(r=4)  translate([sides+overhang[3],bottom+overhang[2],0]) square([x-overhang[1]-overhang[3],y-overhang[0]-overhang[2]]) ;
     }
 
 
