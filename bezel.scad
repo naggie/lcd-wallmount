@@ -3,7 +3,7 @@
 // TODO inspect https://github.com/howtokap/kap-tx1/blob/master/bezel/bezel.scad for ideas
 use <morphology.scad>
 
-$fn = 80;
+$fn = 120;
 
 // basic portrait bezel
 // set tolerance to leave an appropriate gap for your manufacturing method
@@ -43,7 +43,7 @@ module bezel(x,y,z,overhang=[3,3,3,3],front=2,top=10,bottom=10,sides=5) {
 // 6. Apply black nail polish to screw heads
 //
 // (6) was discovered to be better than using printed plastic screw head covers.
-module countersunk_screwhole(head=8,diameter=4,height=25) {
+module countersunk_screwhole(head=8,diameter=4,height=250) {
     // expand 10% for some play
     scale([1.1,1.1,1.1]) {
         // head
@@ -108,14 +108,18 @@ module nexus4_bezel() {
 }
 // LG Nexus 4
 //translate([-65,-106,0]) {
-translate([0,0,0]) {
-    fire5_bezel();
-    translate([20,35]) {
-        nexus4_bezel();
-        //translate([5,10,0.1]) color("red") import("NEXUS4.STL");
-        //translate([5,10]) import("NEXUS4.STL");
-    }
-}
+//translate([0,0,0]) {
+//    fire5_bezel();
+//    translate([20,35]) {
+//        nexus4_bezel();
+//        //translate([5,10,0.1]) color("red") import("NEXUS4.STL");
+//        //translate([5,10]) import("NEXUS4.STL");
+//    }
+//}
 
 //!nexus4_bezel();
 //
+//
+
+// pi LCD
+mountable_bezel(193,111,28,overhang=[6,6,6,6],front=1.6,top=11,bottom=11,sides=5);
