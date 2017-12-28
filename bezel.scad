@@ -1,9 +1,12 @@
 // https://github.com/OskarLinde/scad-utils/blob/master/morphology.scad
 // empty in in /Users/<user>/Documents/OpenSCAD/libraries
 // TODO inspect https://github.com/howtokap/kap-tx1/blob/master/bezel/bezel.scad for ideas
-use <morphology.scad>
 
-$fn = 120;
+$fn = 120; 
+
+module rounded_cube(x,y,z,r) {
+    linear_extrude(height=z) translate([r,r,0]) offset(r=r) square([x-2*r,y-2*r]);
+}
 
 // basic portrait bezel
 // set tolerance to leave an appropriate gap for your manufacturing method
@@ -13,15 +16,14 @@ module bezel(x,y,z,overhang=[3,3,3,3],front=2,top=10,bottom=10,sides=5) {
     // overhang: top, right, bottom, left (like CSS)
 
     difference() {
-        // 2D shape is extruded (instead of 3d to begin with) such that morphology library can be used
-
         // bounding box
-        linear_extrude(height=z+front) rounding(r=4) square([x+2*sides,y+top+bottom]);
+        rounded_cube(x+2*sides, y+top+bottom, z+front, 6);
         // tablet cut out
-        translate([0,0,-1]) linear_extrude(height=z+1) rounding(r=2)  translate([sides,bottom,0]) square([x,y]);
-        ///translate ([sides,bottom,0]) cube([x,y,z]);
+        translate([sides,bottom,-1]) rounded_cube(x,y,z+1,2);
+
         // display cut out leaving a frame
-        translate([0,0,-1]) linear_extrude(height=z+front+2) rounding(r=4)  translate([sides+overhang[3],bottom+overhang[2],0]) square([x-overhang[1]-overhang[3],y-overhang[0]-overhang[2]]) ;
+        translate([sides+overhang[3],bottom+overhang[2],-1])
+            rounded_cube(x-overhang[1]-overhang[3], y-overhang[0]-overhang[2],z+front+2,2);
     }
 
 
@@ -66,10 +68,10 @@ module mountable_bezel(x,y,z,overhang=[3,3,3,3],front=2,top=11,bottom=11,sides=5
 
     difference() {
         bezel(x,y,z,overhang,front,top,bottom,sides);
-        translate([5.5,5.5,screw_z]) countersunk_screwhole(); // BL
-        translate([width-5.5,5.5,screw_z]) countersunk_screwhole(); // BR
-        translate([5.5,height-5.5,screw_z]) countersunk_screwhole(); // TL
-        translate([width-5.5,height-5.5,screw_z]) countersunk_screwhole(); // TR
+        translate([6,6,screw_z]) countersunk_screwhole(); // BL
+        translate([width-6,6,screw_z]) countersunk_screwhole(); // BR
+        translate([6,height-6,screw_z]) countersunk_screwhole(); // TL
+        translate([width-6,height-6,screw_z]) countersunk_screwhole(); // TR
     }
 }
 
