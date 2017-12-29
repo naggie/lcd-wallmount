@@ -12,17 +12,17 @@ module rounded_cube(x,y,z,r) {
 // set tolerance to leave an appropriate gap for your manufacturing method
 // https://www.3dprint-uk.co.uk/machine-accuracy/
 // Tolerance is only given for the critical part, the tablet inlay
-module bezel(x,y,z,overhang=[3,3,3,3],front=2,top=10,bottom=10,sides=5) {
-    // overhang: top, right, bottom, left (like CSS)
+module bezel(x,y,z,overhang=[3,3,3,3],front=2,xframe=10,yframe=5) {
+    // overhang: top, right, xframe, left (like CSS)
 
     difference() {
         // bounding box
-        rounded_cube(x+2*sides, y+top+bottom, z+front, 6);
+        rounded_cube(x+yframe*2, y+xframe*2, z+front, 6);
         // tablet cut out
-        translate([sides,bottom,-1]) rounded_cube(x,y,z+1,2);
+        translate([yframe,xframe,-1]) rounded_cube(x,y,z+1,2);
 
         // display cut out leaving a frame
-        translate([sides+overhang[3],bottom+overhang[2],-1])
+        translate([yframe+overhang[3],xframe+overhang[2],-1])
             rounded_cube(x-overhang[1]-overhang[3], y-overhang[0]-overhang[2],z+front+2,2);
     }
 
@@ -55,30 +55,30 @@ module countersunk_screwhole(head=8,diameter=4) {
     translate([0,0,9.99]) cylinder(h=20,r=head/2,center=true);
 }
 
-module mountable_bezel(x,y,z,overhang=[3,3,3,3],front=2,top=11,bottom=11,sides=5,margin=0.5,vents=true) {
+module mountable_bezel(x,y,z,overhang=[3,3,3,3],front=2,xframe=11,yframe=5,margin=0.5,vents=true) {
     x = x+margin;
     y = y+margin;
     z = z+margin;
 
-    height = y + top + bottom;
-    width = x+2*sides;
+    height = y + xframe*2;
+    width = x+2*yframe;
     screw_z = z+front-1;
 
     difference() {
-        bezel(x,y,z,overhang,front,top,bottom,sides);
+        bezel(x,y,z,overhang,front,xframe,yframe);
         translate([6,6,screw_z]) countersunk_screwhole(); // BL
         translate([width-6,6,screw_z]) countersunk_screwhole(); // BR
         translate([6,height-6,screw_z]) countersunk_screwhole(); // TL
         translate([width-6,height-6,screw_z]) countersunk_screwhole(); // TR
         if (vents) {
-            translate([-500,sides+overhang[3]+y*0.2,3]) rotate([0,90,0]) rounded_cube(12,y*0.6,1000,3);
+            translate([-500,yframe+overhang[3]+y*0.2,3]) rotate([0,90,0]) rounded_cube(12,y*0.6,1000,3);
         }
     }
 }
 
 module fire5_bezel() {
     difference() {
-        mountable_bezel(115,191,10.6,front=1.5,top=12,bottom=11);
+        mountable_bezel(115,191,10.6,front=1.5,xframe=12);
 
         // volume rocker (30-54)
         translate([30+5,10+192,0]) cube([24,1.8,10.8]);
@@ -98,7 +98,7 @@ module fire5_bezel() {
 // TODO check proximity sensor does not affect correct operation of phone
 module nexus4_bezel() {
     difference() {
-        mountable_bezel(68.7,133.9,9.1,[12,3,12,3],front=1.5,top=11,bottom=13);
+        mountable_bezel(68.7,133.9,9.1,[12,3,12,3],front=1.5,xframe=13);
 
         // volume rocker
         translate([5-1.8,12+79,0]) cube([1.8,23,0]);
@@ -114,7 +114,6 @@ module nexus4_bezel() {
     }
 }
 // LG Nexus 4
-//translate([-65,-106,0]) {
 //translate([0,0,0]) {
 //    fire5_bezel();
 //    translate([20,35]) {
@@ -123,10 +122,9 @@ module nexus4_bezel() {
 //        //translate([5,10]) import("NEXUS4.STL");
 //    }
 //}
-
 //!nexus4_bezel();
 //
 //
 
 // pi LCD
-mountable_bezel(193,111,26,overhang=[6,6,6,6],front=1.6,top=10,bottom=10,sides=3);
+mountable_bezel(193,111,26,overhang=[6,6,6,6],front=1.6,xframe=10,yframe=3);
