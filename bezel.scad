@@ -1,6 +1,8 @@
 // https://github.com/OskarLinde/scad-utils/blob/master/morphology.scad
 // empty in in /Users/<user>/Documents/OpenSCAD/libraries
 // TODO inspect https://github.com/howtokap/kap-tx1/blob/master/bezel/bezel.scad for ideas
+//
+// TODO yconnectors, xconnectors (or auto, if y> x etc)
 
 $fn = 120; 
 
@@ -93,6 +95,13 @@ module mountable_bezel(x,y,z,overhang=[3,3,3,3],front=2,yframe=11,xframe=5,margi
         if (yvents) {
             translate([xframe+x*0.2, 500, 3]) rotate([0,90,270]) rounded_cube(12,x*0.6,1000,3);
         }
+
+        // cable recesses
+        //if (x > y) {
+        //    translate([3,yframe+y*0.25,z]) rotate([0, 90, 0]) rounded_cube(500, y*0.5, xframe*2 + x -6, 3);
+        //} else {
+        //    translate([xframe+x*0.25, 3, z]) mirror([0,1,0]) rotate([0,90,270]) rounded_cube(500, x*0.5, yframe*2 + y -6, 3);
+        //}
     }
 }
 
