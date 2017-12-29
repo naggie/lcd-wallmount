@@ -12,8 +12,25 @@ module rounded_cube(x,y,z,r) {
 // set tolerance to leave an appropriate gap for your manufacturing method
 // https://www.3dprint-uk.co.uk/machine-accuracy/
 // Tolerance is only given for the critical part, the tablet inlay
-module bezel(x,y,z,overhang=[3,3,3,3],front=2,yframe=10,xframe=5,xshift=0, yshift=0) {
-    // overhang: top, right, yframe, left (like CSS)
+module bezel(
+    // size of tablet/display (bounding box)
+    x,y,z,
+    // plastic covering screen: top, right, yframe, left (like CSS)
+    // use to cover corner radius of tablet/display
+    // use to cover non-display areas of tablet/display
+    overhang=[3,3,3,3],
+    // thickness of plastic covering screen
+    front=2,
+    // frame intersecting y-axis
+    yframe=10,
+    // frame intersecting x-axis
+    xframe=5,
+    // move position of tablet/display along x-axis to center display
+    xshift=0,
+    // move position of tablet/display along y-axis to center display
+    yshift=0,
+) {
+
 
     difference() {
         // bounding box
