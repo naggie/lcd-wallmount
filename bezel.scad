@@ -55,7 +55,7 @@ module countersunk_screwhole(head=8,diameter=4) {
     translate([0,0,9.99]) cylinder(h=20,r=head/2,center=true);
 }
 
-module mountable_bezel(x,y,z,overhang=[3,3,3,3],front=2,top=11,bottom=11,sides=5,margin=1,vents=true) {
+module mountable_bezel(x,y,z,overhang=[3,3,3,3],front=2,top=11,bottom=11,sides=5,margin=0.5,vents=true) {
     x = x+margin;
     y = y+margin;
     z = z+margin;
