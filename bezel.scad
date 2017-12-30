@@ -1,8 +1,5 @@
 // https://github.com/OskarLinde/scad-utils/blob/master/morphology.scad
 // empty in in /Users/<user>/Documents/OpenSCAD/libraries
-// TODO inspect https://github.com/howtokap/kap-tx1/blob/master/bezel/bezel.scad for ideas
-//
-// TODO yconnectors, xconnectors (or auto, if y> x etc)
 
 $fn = 120; 
 
@@ -121,8 +118,6 @@ module fire5_bezel() {
     }
 }
 
-// TODO hide corners with large radius
-// TODO check proximity sensor does not affect correct operation of phone
 module nexus4_bezel() {
     difference() {
         mountable_bezel(68.7,133.9,9.1,[12,3,12,3],front=1.5,yframe=13);
@@ -140,18 +135,9 @@ module nexus4_bezel() {
         translate([5+68.7,12+101+6,9.1/2]) rotate([270,0,270]) cylinder(h=20,r=1.5);
     }
 }
-// LG Nexus 4
-//translate([0,0,0]) {
-//    fire5_bezel();
-//    translate([20,35]) {
-//        nexus4_bezel();
-//        //translate([5,10,0.1]) color("red") import("NEXUS4.STL");
-//        //translate([5,10]) import("NEXUS4.STL");
-//    }
-//}
-//!nexus4_bezel();
-//
-//
+
+//fire5_bezel();
+//nexus4_bezel();
 
 // pi LCD
 mountable_bezel(193,111,26,overhang=[6,6,6,6],front=1.6,yframe=12,xframe=3,xvents=true,yshift=2.02);
