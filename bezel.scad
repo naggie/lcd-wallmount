@@ -140,5 +140,5 @@ module nexus4_bezel() {
 //nexus4_bezel();
 
 // pi LCD
-mountable_bezel(193,111,26,overhang=[6,6,6,6],front=1.6,yframe=12,xframe=3,xvents=true,yshift=2.02);
+mountable_bezel(193,111,26,overhang=[6,6,6,6],front=1.6,yframe=12,xframe=3,xvents=true,yshift=1);
 //mountable_bezel(111,193,26,overhang=[6,6,6,6],front=1.6,yframe=10,xframe=3,yvents=true);
