@@ -61,7 +61,7 @@ module bezel(
 // 6. Apply black nail polish to screw heads
 //
 // (6) was discovered to be better than using printed plastic screw head covers.
-module countersunk_screwhole(head=8,diameter=4.5) {
+module countersunk_screwhole(head=8.5,diameter=4.5) {
     // head
     translate([0,0,-head*0.762/2]) cylinder(h=head*0.762,r1=0,r2=head/2,center=true);
     // shank
@@ -78,7 +78,7 @@ module mountable_bezel(x,y,z,overhang=[3,3,3,3],front=2,yframe=11,xframe=5,margi
 
     height = y + yframe*2;
     width = x+2*xframe;
-    screw_z = z+front-1;
+    screw_z = z+front-1.5;
 
     difference() {
         bezel(x,y,z,overhang,front,yframe,xframe,xshift,yshift);
@@ -140,5 +140,5 @@ module nexus4_bezel() {
 //nexus4_bezel();
 
 // pi LCD
-mountable_bezel(193,111,26,overhang=[6,6,6,6],front=1.6,yframe=12,xframe=3,xvents=true,yshift=1);
+mountable_bezel(193,111,29,overhang=[6,6,6,6],front=1.6,yframe=12,xframe=3,xvents=true,yshift=1);
 //mountable_bezel(111,193,26,overhang=[6,6,6,6],front=1.6,yframe=10,xframe=3,yvents=true);
