@@ -28,6 +28,8 @@ module bezel(
     xshift=0,
     // move position of tablet/display along y-axis to center display
     yshift=0,
+    // internal cut out radius -- could match tablet/display corners. Important for flush displays
+    internal_redius=2,
 ) {
 
 
@@ -35,7 +37,7 @@ module bezel(
         // bounding box
         rounded_cube(x+xframe*2, y+yframe*2, z+front, 6);
         // tablet cut out
-        translate([xframe+xshift,yframe+yshift,-1]) rounded_cube(x,y,z+1,2);
+        translate([xframe+xshift,yframe+yshift,-1]) rounded_cube(x,y,z+1,internal_redius);
 
         // display cut out leaving a frame
         translate([xframe+overhang[3],yframe+overhang[2],-1])
@@ -71,7 +73,21 @@ module countersunk_screwhole(head=8.5,diameter=4.5) {
     translate([0,0,9.99]) cylinder(h=20,r=head/2,center=true);
 }
 
-module mountable_bezel(x,y,z,overhang=[3,3,3,3],front=2,yframe=11,xframe=5,margin=0.6,xshift=0, yshift=0, xvents=false,yvents=false) {
+module mountable_bezel(
+    x,
+    y,
+    z,
+    overhang=[3, 3, 3, 3],
+    front=2,
+    yframe=11,
+    xframe=5,
+    margin=0.6,
+    xshift=0,
+    yshift=0,
+    xvents=false,
+    yvents=false,
+    internal_redius=2,
+) {
     x = x+margin;
     y = y+margin;
     z = z+margin;
@@ -81,7 +97,7 @@ module mountable_bezel(x,y,z,overhang=[3,3,3,3],front=2,yframe=11,xframe=5,margi
     screw_z = z+front-1.5;
 
     difference() {
-        bezel(x,y,z,overhang,front,yframe,xframe,xshift,yshift);
+        bezel(x,y,z,overhang,front,yframe,xframe,xshift,yshift,internal_redius);
         translate([6,6,screw_z]) countersunk_screwhole(); // BL
         translate([width-6,6,screw_z]) countersunk_screwhole(); // BR
         translate([6,height-6,screw_z]) countersunk_screwhole(); // TL
@@ -140,5 +156,16 @@ module nexus4_bezel() {
 //nexus4_bezel();
 
 // pi LCD
-mountable_bezel(193,111,29,overhang=[6,6,6,6],front=1.6,yframe=12,xframe=3,xvents=true,yshift=1);
-//mountable_bezel(111,193,26,overhang=[6,6,6,6],front=1.6,yframe=10,xframe=3,yvents=true);
+mountable_bezel(
+    193,
+    111,
+    29,
+    overhang=[6, 6, 6, 6],
+    front=1.6,
+    yframe=12,
+    xframe=3,
+    xvents=true,
+    yvents=true,
+    yshift=1,
+    internal_redius=12,
+);
