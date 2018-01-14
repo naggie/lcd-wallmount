@@ -84,8 +84,6 @@ module mountable_bezel(
     margin=0.6,
     xshift=0,
     yshift=0,
-    xvents=false,
-    yvents=false,
     internal_redius=2,
 ) {
     x = x+margin;
@@ -102,12 +100,15 @@ module mountable_bezel(
         translate([width-6,6,screw_z]) countersunk_screwhole(); // BR
         translate([6,height-6,screw_z]) countersunk_screwhole(); // TL
         translate([width-6,height-6,screw_z]) countersunk_screwhole(); // TR
-        if (xvents) {
-            translate([-500,yframe+y*0.2,3]) rotate([0,90,0]) rounded_cube(12,y*0.6,1000,3);
-        }
-        if (yvents) {
-            translate([xframe+x*0.2, 500, 3]) rotate([0,90,270]) rounded_cube(12,x*0.6,1000,3);
-        }
+
+
+        // vents provide passive cooling (remove the back cover of tablet if
+        // tablet is used) and also make the product look slimmer
+        // x vents
+        translate([-500,yframe+y*0.2,3]) rotate([0,90,0]) rounded_cube(12,y*0.6,1000,3);
+
+        // yvents
+        translate([xframe+x*0.2, 500, 3]) rotate([0,90,270]) rounded_cube(12,x*0.6,1000,3);
 
         // cable recesses: only appear if frames are wide enough
         translate([3, yframe+y*0.2, z]) mirror([0,0,1]) rounded_cube(xframe*2 + x -6, y*0.6, 500, 3);
@@ -164,8 +165,6 @@ mountable_bezel(
     front=1.6,
     yframe=12,
     xframe=3,
-    xvents=true,
-    yvents=true,
     yshift=1,
-    internal_redius=12,
+    internal_redius=12
 );
