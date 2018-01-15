@@ -19,29 +19,34 @@ module bezel(
     // use to cover non-display areas of tablet/display
     overhang=[3,3,3,3],
     // thickness of plastic covering screen
-    front=2,
+    rim_depth=2,
+    // how far to move the rim down, use only to mount a flush screen from the front
+    rim_inset=0,
     // frame intersecting y-axis
     yframe=10,
     // frame intersecting x-axis
     xframe=5,
-    // move position of tablet/display along x-axis to center display
+    // move position of tablet/display along x-axis/y-axis to center a display with non-symmetric edges
     xshift=0,
-    // move position of tablet/display along y-axis to center display
     yshift=0,
     // internal cut out radius -- could match tablet/display corners. Important for flush displays
-    internal_redius=2,
+    internal_radius=2,
 ) {
 
 
     difference() {
         // bounding box
-        rounded_cube(x+xframe*2, y+yframe*2, z+front, 6);
-        // tablet cut out
-        translate([xframe+xshift,yframe+yshift,-1]) rounded_cube(x,y,z+1,internal_redius);
+        rounded_cube(x+xframe*2, y+yframe*2, z + rim_depth + rim_inset, 6);
 
-        // display cut out leaving a frame
-        translate([xframe+overhang[3],yframe+overhang[2],-1])
-            rounded_cube(x-overhang[1]-overhang[3], y-overhang[0]-overhang[2],z+front+2,2);
+        // cut tablet, leaving a thin wall at front
+        translate([xframe+xshift,yframe+yshift,-1]) rounded_cube(x,y,z+1.001,internal_radius);
+
+        // cut front inset, eating into rim to make inset
+        translate([xframe+xshift,yframe+yshift, z + rim_depth + 0.001]) rounded_cube(x, y, 500, internal_radius);
+
+        // cut out window leaving a rim
+        translate([xframe + overhang[3], yframe + overhang[2], -500])
+            rounded_cube(x - overhang[1] - overhang[3], y-overhang[0] - overhang[2], 1000, 2);
     }
 
 
@@ -78,13 +83,14 @@ module mountable_bezel(
     y,
     z,
     overhang=[3, 3, 3, 3],
-    front=2,
+    rim_depth=2,
+    rim_inset=0,
     yframe=11,
     xframe=5,
     margin=0.6,
     xshift=0,
     yshift=0,
-    internal_redius=2,
+    internal_radius=2,
 ) {
     x = x+margin;
     y = y+margin;
@@ -92,10 +98,20 @@ module mountable_bezel(
 
     height = y + yframe*2;
     width = x+2*xframe;
-    screw_z = z+front-1.5;
+    screw_z = z+rim_depth-1.5;
 
     difference() {
-        bezel(x,y,z,overhang,front,yframe,xframe,xshift,yshift,internal_redius);
+        bezel(
+            x=x, y=y, z=z,
+            overhang=overhang,
+            rim_depth=rim_depth,
+            rim_inset=rim_inset,
+            yframe=yframe,
+            xframe=xframe,
+            xshift=xshift,
+            yshift=yshift,
+            internal_radius=internal_radius
+        );
         translate([6,6,screw_z]) countersunk_screwhole(); // BL
         translate([width-6,6,screw_z]) countersunk_screwhole(); // BR
         translate([6,height-6,screw_z]) countersunk_screwhole(); // TL
@@ -106,11 +122,10 @@ module mountable_bezel(
         // tablet is used) and also make the product look slimmer
         // x vents
         translate([-500,yframe+y*0.2,3]) rotate([0,90,0]) rounded_cube(12,y*0.6,1000,3);
-
-        // yvents
+        // y vents
         translate([xframe+x*0.2, 500, 3]) rotate([0,90,270]) rounded_cube(12,x*0.6,1000,3);
 
-        // cable recesses: only appear if frames are wide enough
+        // cable recesses, will only appear if frames are wide enough
         translate([3, yframe+y*0.2, z]) mirror([0,0,1]) rounded_cube(xframe*2 + x -6, y*0.6, 500, 3);
         translate([xframe+x*0.2, 3, z]) mirror([0, 0, 1]) rounded_cube(x*0.6, yframe*2 + y -6, 500, 3);
 
@@ -119,7 +134,7 @@ module mountable_bezel(
 
 module fire5_bezel() {
     difference() {
-        mountable_bezel(115,191,10.6,front=1.5,yframe=12);
+        mountable_bezel(115,191,10.6,rim_depth=1.5,yframe=12);
 
         // volume rocker (30-54)
         translate([30+5,10+192,0]) cube([24,1.8,10.8]);
@@ -137,7 +152,7 @@ module fire5_bezel() {
 
 module nexus4_bezel() {
     difference() {
-        mountable_bezel(68.7,133.9,9.1,[12,3,12,3],front=1.5,yframe=13);
+        mountable_bezel(68.7,133.9,9.1,[12,3,12,3],rim_depth=1.5,yframe=13);
 
         // volume rocker
         translate([5-1.8,12+79,0]) cube([1.8,23,0]);
@@ -157,14 +172,29 @@ module nexus4_bezel() {
 //nexus4_bezel();
 
 // pi LCD
+//mountable_bezel(
+//    193,
+//    111,
+//    29,
+//    overhang=[6, 6, 6, 6],
+//    rim_depth=1.6,
+//    rim_inset=0,
+//    yframe=12,
+//    xframe=3,
+//    yshift=1,
+//    internal_radius=12
+//);
+
+// pi LCD with inset bezel
 mountable_bezel(
     193,
     111,
     29,
-    overhang=[6, 6, 6, 6],
-    front=1.6,
+    overhang=[4, 4, 4, 4],
+    rim_depth=2,
+    rim_inset=1,
     yframe=12,
     xframe=3,
     yshift=1,
-    internal_redius=12
+    internal_radius=12
 );
