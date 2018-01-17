@@ -1,7 +1,7 @@
 // https://github.com/OskarLinde/scad-utils/blob/master/morphology.scad
 // empty in in /Users/<user>/Documents/OpenSCAD/libraries
 
-$fn = 120; 
+$fn = 120;
 
 module rounded_cube(x,y,z,r) {
     linear_extrude(height=z) translate([r,r,0]) offset(r=r) square([x-2*r,y-2*r]);
@@ -31,6 +31,8 @@ module bezel(
     yshift=0,
     // internal cut out radius -- could match tablet/display corners. Important for flush displays
     internal_radius=2,
+    // radius of rim, or support for flush screen
+    rim_radius=2
 ) {
 
 
@@ -46,7 +48,7 @@ module bezel(
 
         // cut out window leaving a rim
         translate([xframe + overhang[3], yframe + overhang[2], -500])
-            rounded_cube(x - overhang[1] - overhang[3], y-overhang[0] - overhang[2], 1000, 2);
+            rounded_cube(x - overhang[1] - overhang[3], y-overhang[0] - overhang[2], 1000, rim_radius);
     }
 
 
@@ -91,6 +93,7 @@ module mountable_bezel(
     xshift=0,
     yshift=0,
     internal_radius=2,
+    rim_radius=2
 ) {
     x = x+margin;
     y = y+margin;
@@ -110,7 +113,8 @@ module mountable_bezel(
             xframe=xframe,
             xshift=xshift,
             yshift=yshift,
-            internal_radius=internal_radius
+            internal_radius=internal_radius,
+            rim_radius=rim_radius
         );
         translate([6,6,screw_z]) countersunk_screwhole(); // BL
         translate([width-6,6,screw_z]) countersunk_screwhole(); // BR
@@ -182,7 +186,8 @@ module nexus4_bezel() {
 //    yframe=12,
 //    xframe=3,
 //    yshift=1,
-//    internal_radius=12
+//    internal_radius=6,
+    //rim_radius=1
 //);
 
 // pi LCD with inset bezel
@@ -190,11 +195,13 @@ mountable_bezel(
     193,
     111,
     29,
-    overhang=[4, 4, 4, 4],
+    overhang=[7, 11, 3, 4],
     rim_depth=2,
-    rim_inset=1,
+    //rim_inset=0.64,
+    rim_inset=1.00,
     yframe=12,
     xframe=3,
     yshift=1,
-    internal_radius=12
+    internal_radius=6,
+    rim_radius=1
 );
