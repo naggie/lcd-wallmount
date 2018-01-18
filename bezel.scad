@@ -194,7 +194,7 @@ module nexus4_bezel() {
 mountable_bezel(
     193,
     111,
-    29,
+    26,
     overhang=[7, 11, 3, 4],
     rim_depth=2,
     //rim_inset=0.64,
