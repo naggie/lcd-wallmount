@@ -1,7 +1,8 @@
 // https://github.com/OskarLinde/scad-utils/blob/master/morphology.scad
 // empty in in /Users/<user>/Documents/OpenSCAD/libraries
-
-$fn = 120;
+// NOTE: Something I realised is symmetry is more important than spatial
+// efficacy.
+$fn = 200;
 
 module rounded_cube(x,y,z,r) {
     linear_extrude(height=z) translate([r,r,0]) offset(r=r) square([x-2*r,y-2*r]);
@@ -125,9 +126,9 @@ module mountable_bezel(
         // vents provide passive cooling (remove the back cover of tablet if
         // tablet is used) and also make the product look slimmer
         // x vents
-        translate([-500,yframe+y*0.2,3]) rotate([0,90,0]) rounded_cube(12,y*0.6,1000,3);
+        translate([-500,yframe+y*0.2,3]) rotate([0,90,0]) rounded_cube(12,y*0.6,1000,4);
         // y vents
-        translate([xframe+x*0.2, 500, 3]) rotate([0,90,270]) rounded_cube(12,x*0.6,1000,3);
+        translate([xframe+x*0.2, 500, 3]) rotate([0,90,270]) rounded_cube(12,x*0.6,1000,4);
 
         // cable recesses, will only appear if frames are wide enough
         translate([3, yframe+y*0.2, z]) mirror([0,0,1]) rounded_cube(xframe*2 + x -6, y*0.6, 500, 3);
@@ -176,32 +177,34 @@ module nexus4_bezel() {
 //nexus4_bezel();
 
 // pi LCD
-//mountable_bezel(
-//    193,
-//    111,
-//    29,
-//    overhang=[6, 6, 6, 6],
-//    rim_depth=1.6,
-//    rim_inset=0,
-//    yframe=12,
-//    xframe=3,
-//    yshift=1,
-//    internal_radius=6,
-    //rim_radius=1
-//);
-
-// pi LCD with inset bezel
 mountable_bezel(
     193,
     111,
-    26,
-    overhang=[7, 11, 3, 4],
-    rim_depth=2,
-    //rim_inset=0.64,
-    rim_inset=1.00,
+    29,
+    overhang=[6, 6, 6, 6],
+    rim_depth=1.6,
+    rim_inset=0,
     yframe=12,
     xframe=3,
     yshift=1,
-    internal_radius=6,
-    rim_radius=1
+    internal_radius=6.5
 );
+
+// pi LCD with inset bezel
+//difference() {
+//mountable_bezel(
+//    193.5,
+//    111.5,
+//    26,
+//    overhang=[7, 11, 3, 4],
+//    rim_depth=2,
+//    rim_inset=1.50,
+//    yframe=12,
+//    xframe=3,
+//    yshift=1,
+//    internal_radius=6.5,
+//    rim_radius=1
+//);
+//
+//translate([-1,-1,-1]) cube([300,300,25]);
+//}
