@@ -126,9 +126,9 @@ module mountable_bezel(
         // vents provide passive cooling (remove the back cover of tablet if
         // tablet is used) and also make the product look slimmer
         // x vents
-        translate([-500,yframe+y*0.2,3]) rotate([0,90,0]) rounded_cube(12,y*0.6,1000,4);
+        translate([-500,yframe+y*0.2,4]) rotate([0,90,0]) rounded_cube(12,y*0.6,1000,4);
         // y vents
-        translate([xframe+x*0.2, 500, 3]) rotate([0,90,270]) rounded_cube(12,x*0.6,1000,4);
+        translate([xframe+x*0.2, 500, 4]) rotate([0,90,270]) rounded_cube(12,x*0.6,1000,4);
 
         // cable recesses, will only appear if frames are wide enough
         translate([3, yframe+y*0.2, z]) mirror([0,0,1]) rounded_cube(xframe*2 + x -6, y*0.6, 500, 3);
