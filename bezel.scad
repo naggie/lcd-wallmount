@@ -39,7 +39,7 @@ module bezel(
 
     difference() {
         // bounding box
-        rounded_cube(x+xframe*2, y+yframe*2, z + rim_depth + rim_inset, 6);
+        rounded_cube(x+xframe*2, y+yframe*2, z + rim_depth + rim_inset, 3);
 
         // cut tablet, leaving a thin wall at front
         translate([xframe+xshift,yframe+yshift,-1]) rounded_cube(x,y,z+1.001,internal_radius);
