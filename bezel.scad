@@ -134,10 +134,13 @@ module mountable_bezel(
         // cable recesses, will only appear if frames are wide enough
         translate([3, yframe+y*0.2, z]) mirror([0,0,1]) rounded_cube(xframe*2 + x -6, y*0.6, 500, 3);
         translate([xframe+x*0.2, 3, z]) mirror([0, 0, 1]) rounded_cube(x*0.6, yframe*2 + y -6, 500, 3);
+
+        // WIP -- conduit. TODO: thin wall to accept coupling, possibly also hex. Shorten vent conduit side.
+        //translate([25, -1, 17]) rotate([270, 0, 0]) cylinder(yframe+2, d=20);
+        //// spanner, recess
+        //translate([14.5, 3, -0.001]) cube([21, yframe, 30]);
     }
 
-    // WIP -- conduit. TODO: thin wall to accept coupling, possibly also hex. Shorten vent conduit side.
-    //translate([25, -1, 17]) rotate([270, 0, 0]) cylinder(100, d=20);
 }
 
 module fire5_bezel() {
