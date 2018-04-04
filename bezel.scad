@@ -129,16 +129,17 @@ module mountable_bezel(
         // x vents
         translate([-500,vent_margin,4]) rotate([0,90,0]) rounded_cube(12,y+yframe*2-2*vent_margin,1000,4);
         // y vents
-        translate([vent_margin, 500, 4]) rotate([0,90,270]) rounded_cube(12,x+xframe*2-2*vent_margin,1000,4);
+        translate([vent_margin+30, 500, 4]) rotate([0,90,270]) rounded_cube(12,x+xframe*2-2*vent_margin-30,1000,4);
+        translate([vent_margin, 505+yframe, 4]) rotate([0,90,270]) rounded_cube(12,x+xframe*2-2*vent_margin,500,4);
 
         // cable recesses, will only appear if frames are wide enough
         translate([3, yframe+y*0.2, z]) mirror([0,0,1]) rounded_cube(xframe*2 + x -6, y*0.6, 500, 3);
         translate([xframe+x*0.2, 3, z]) mirror([0, 0, 1]) rounded_cube(x*0.6, yframe*2 + y -6, 500, 3);
 
         // WIP -- conduit. TODO: thin wall to accept coupling, possibly also hex. Shorten vent conduit side.
-        //translate([25, -1, 17]) rotate([270, 0, 0]) cylinder(yframe+2, d=20);
-        //// spanner, recess
-        //translate([14.5, 3, -0.001]) cube([21, yframe, 30]);
+        translate([25, -1, 17]) rotate([270, 0, 0]) cylinder(yframe+2, d=20);
+        // spanner, recess
+        translate([14.5, 3, -0.001]) cube([21, yframe, 30]);
     }
 
 }
