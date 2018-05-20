@@ -1,0 +1,49 @@
+syntax = "proto3";
+package dsign;
+
+service Dsign {
+    // display specs as given whilst the stream is open. Streams enter a stack
+    // once connected, giving precedence to the latest stream to connect. This
+    // means that it's possible to temporarily override a display and return to
+    // given state.
+    rpc SetDisplay (stream DisplaySpec) returns (Empty);
+
+    // default display for when there are no streams connected, remembered on boot
+    rpc SetDefaultDisplay (DisplaySpec) returns (Empty);
+
+    // for while the stream is open, show messages as they happen. When stream
+    // is closed, return to original state. Useful to synchronise to TTS.
+    rpc DisplayMessage (stream Message) returns (Empty);
+
+    // set the logo -- can be PNG, JPG or SVG. Shown during a message if the
+    // logo flag is set.
+    rpc SetLogo (Image) returns (Empty);
+}
+
+message DisplaySpec {
+    // if set, adds a top/bottom bar
+    string top_bar_url = 1;
+    string bottom_bar_url = 2;
+
+    // main area. Will split as follows:
+    // 1. [ 1 ]
+    //
+    // 2. [1|2]
+    //
+    // 3. [ 1 ]
+    //    [2|3]
+    //
+    // 4. [1|2]
+    //    [3|4]
+    repeated string url = 3;
+}
+
+message Message {
+    // show the saved logo, if any
+    bool logo = 1;
+    string text = 2;
+}
+
+message Logo {
+    bytes data = 1;
+}
