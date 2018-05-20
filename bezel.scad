@@ -90,7 +90,7 @@ module mountable_bezel(
     rim_inset=0,
     yframe=11,
     xframe=5,
-    margin=0.6,
+    margin=1,
     xshift=0,
     yshift=0,
     internal_radius=2,
