@@ -27,3 +27,6 @@ pk12util -d sql:$HOME/.pki/nssdb -i cert.pfx
 # for remote screen
 # DISPLAY=:0 x11vnc -usepw -forever
 
+# TODO allow x-origin iframe
+# --disable-web-security disables same-origin policy
+# https://chromium.googlesource.com/chromium/src.git/+/62.0.3202.58/third_party/WebKit/Source/platform/RuntimeEnabledFeatures.json5
