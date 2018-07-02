@@ -49,7 +49,7 @@ message DisplaySpec {
     //
     // 4. [1|2]
     //    [3|4]
-    repeated Page page = 3;
+    repeated Pane page = 3;
 }
 
 message Message {
@@ -62,7 +62,7 @@ message Logo {
     bytes data = 1;
 }
 
-message Page {
+message Pane {
     string url = 1;
     // Javascript to inject if any
     string javascript = 2;

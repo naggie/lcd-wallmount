@@ -34,14 +34,14 @@ module bezel(
     internal_radius=2,
     // radius of rim, or support for flush screen
     rim_radius=2,
-    slope=false
+    slopes=true
 ) {
 
 
     difference() {
         hull() {
-            if (slope) {
-                // experimental inefficient but cool looking slope!
+            if (slopes) {
+                // experimental inefficient but cool looking slopes!
                 translate([0, -z, 0]) rounded_cube(x+xframe*2, y+yframe*2 + 2*z, 6, 3);
             }
 

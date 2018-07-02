@@ -8,3 +8,8 @@ Optional:
 Lacquer 3 or 4 coats
 Sand P2000, P4000, P5000
 Polish (car polish process)
+
+
+
+# Pi
+set lcd_rotate=2 for better wall mounted viewing angles.
