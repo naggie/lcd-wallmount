@@ -34,7 +34,7 @@ module bezel(
     internal_radius=2,
     // radius of rim, or support for flush screen
     rim_radius=2,
-    slopes=true
+    slopes=false
 ) {
 
 
