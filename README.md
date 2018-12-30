@@ -1,6 +1,7 @@
 Unibezel is a tough, parametric bezel suitable for mounting a touchscreen on to
 any wall. It has vents for passive cooling, holes for screws and cut-outs for
-cabling. It is an evolution of my last [Amazon fire tablet mounting system.][1]
+cabling. It is an evolution of my last [Amazon fire tablet mounting
+system.][1]. It is built using [OpenSCAD][4].
 
 The OpenSCAD file (bezel.scad) is set up to fit the [official Pi LCD
 display][2] with a reversed [Raspberry Pi 3][2] behind, with space for a generic 5v
@@ -8,6 +9,10 @@ display][2] with a reversed [Raspberry Pi 3][2] behind, with space for a generic
 tablet -- though, beware -- do not leave the battery in the tablet when wall
 mounted as it is a fire hazard. It is possible to power the tablet without the
 battery providing the battery interface board is left connected.
+
+The design has optional cut-outs for a 20mm conduit entry point, as well as
+slopes on the top and bottom to increase toughness. Edges are mostly rounded
+and chamfered to reduce stress concentration.
 
 # Finishing process
 
@@ -46,3 +51,4 @@ Stop at step 5 if you're happy with a mediocre finish.
 [1]: https://callanbryant.co.uk/post/dshome-2-control-panels/
 [2]: https://www.raspberrypi.org/products/raspberry-pi-touch-display/
 [3]: https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/
+[4]: https://www.openscad.org/
