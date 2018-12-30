@@ -17,6 +17,10 @@ and chamfered to reduce stress concentration.
 pi-display-bezel.stl is provided for your convenience. It is a pre-built stl of
 the default configuration suitable for the official Pi display as above.
 
+This design is the result of dozens of printed iterations. If you use this
+design, please attribute the original repository at
+https://github.com/naggie/unibezel
+
 # Finishing process
 
 I've printed this design with PLA on my 3d printer. It seems to work well -- no
