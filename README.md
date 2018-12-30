@@ -14,6 +14,9 @@ The design has optional cut-outs for a 20mm conduit entry point, as well as
 slopes on the top and bottom to increase toughness. Edges are mostly rounded
 and chamfered to reduce stress concentration.
 
+pi-display-bezel.stl is provided for your convenience. It is a pre-built stl of
+the default configuration suitable for the official Pi display as above.
+
 # Finishing process
 
 I've printed this design with PLA on my 3d printer. It seems to work well -- no
